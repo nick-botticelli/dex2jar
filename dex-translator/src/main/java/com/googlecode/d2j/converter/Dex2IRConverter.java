@@ -646,6 +646,8 @@ public class Dex2IRConverter {
                 case CONST_WIDE_HIGH16:
                     return b(nLong((Long) ((ConstStmtNode) insn).value));
                 case CONST_CLASS:
+                case CONST_METHOD_TYPE:
+                case CONST_METHOD_HANDLE:
                     return b(nType((DexType) ((ConstStmtNode) insn).value));
                 case CONST_STRING:
                 case CONST_STRING_JUMBO:

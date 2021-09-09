@@ -387,6 +387,13 @@ public final class AntlrSmaliUtil {
                     scv.visitConstStmt(op, r, v);
                 }
                 break;
+                case CONST_METHOD_HANDLE: {
+
+                }
+                break;
+                case CONST_METHOD_TYPE: {
+                }
+                break;
                 default:
                     throw new RuntimeException();
                 }

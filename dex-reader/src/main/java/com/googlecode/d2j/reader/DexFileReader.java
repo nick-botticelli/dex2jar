@@ -1350,6 +1350,7 @@ public class DexFileReader implements BaseDexFileReader {
                 idx = ushort(insns, u1offset + 2);
                 canContinue = idx < typeIdsSize;
                 break;
+            case kIndexMethodHandle:
             case kIndexMethodRef:
                 idx = ushort(insns, u1offset + 2);
                 canContinue = idx < methodIdsSize;
@@ -1366,6 +1367,10 @@ public class DexFileReader implements BaseDexFileReader {
                 idx = ushort(insns, u1offset + 2);
                 int idx2 = ushort(insns, u1offset + 6);
                 canContinue = idx < methodIdsSize && idx2 < protoIdsSize;
+                break;
+            case kIndexMethodProtoRef:
+                idx = ushort(insns, u1offset + 2);
+                canContinue = idx < protoIdsSize;
                 break;
             default:
             }
