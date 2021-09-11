@@ -1350,7 +1350,6 @@ public class DexFileReader implements BaseDexFileReader {
                 idx = ushort(insns, u1offset + 2);
                 canContinue = idx < typeIdsSize;
                 break;
-            case kIndexMethodHandle:
             case kIndexMethodRef:
                 idx = ushort(insns, u1offset + 2);
                 canContinue = idx < methodIdsSize;
@@ -1368,7 +1367,11 @@ public class DexFileReader implements BaseDexFileReader {
                 int idx2 = ushort(insns, u1offset + 6);
                 canContinue = idx < methodIdsSize && idx2 < protoIdsSize;
                 break;
-            case kIndexMethodProtoRef:
+            case kIndexMethodHandleRef:
+                idx = ushort(insns, u1offset + 2);
+                canContinue = idx < methodHandleIdsSize;
+                break;
+            case kIndexProtoRef:
                 idx = ushort(insns, u1offset + 2);
                 canContinue = idx < protoIdsSize;
                 break;
@@ -1669,6 +1672,24 @@ public class DexFileReader implements BaseDexFileReader {
                 case kIndexFieldRef:
                     dcv.visitFieldStmt(op, a, -1, getField(b));
                     break;
+                case kIndexMethodHandleRef:
+                    System.err.println("DexFileReader: kIndexMethodHandle!");
+                    if (op == Op.CONST_METHOD_HANDLE) {
+                        System.err.println("DexFileReader: kIndexMethodHandle > CONST_METHOD_HANDLE | " + a + " | " + b + " | " + getType(b));
+                        dcv.visitConstStmt(Op.CONST_METHOD_HANDLE, a, new DexType(getType(b)));
+                    } else {
+                        dcv.visitTypeStmt(op, a, -1, getType(b));
+                        System.err.println("DexFileReader: kIndexMethodHandle else | " + a + " | " + b + " | " + getType(b));
+                    }
+                case kIndexProtoRef:
+                    System.err.println("DexFileReader: kIndexMethodProtoRef!");
+                    if (op == Op.CONST_METHOD_TYPE) {
+                        System.err.println("DexFileReader: kIndexMethodProtoRef > CONST_METHOD_TYPE | " + a + " | " + b + " | " + getType(b));
+                        dcv.visitConstStmt(Op.CONST_METHOD_TYPE, a, new DexType(getType(b)));
+                    } else {
+                        dcv.visitTypeStmt(op, a, -1, getType(b));
+                        System.err.println("DexFileReader: kIndexMethodProtoRef else | " + a + " | " + b + " | " + getType(b));
+                    }
                 case kIndexTypeRef:
                     if (op == Op.CONST_CLASS) {
                         dcv.visitConstStmt(Op.CONST_CLASS, a, new DexType(getType(b)));
