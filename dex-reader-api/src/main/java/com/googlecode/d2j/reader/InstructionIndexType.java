@@ -26,8 +26,8 @@ package com.googlecode.d2j.reader;
 
     kIndexCallSiteRef, // 038,
 
-    kIndexMethodHandle, // 039
+    kIndexMethodHandleRef, // 039
 
-    kIndexMethodProtoRef, //039
+    kIndexProtoRef, //039
 
 }
