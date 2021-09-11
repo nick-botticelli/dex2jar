@@ -388,10 +388,13 @@ public final class AntlrSmaliUtil {
                 }
                 break;
                 case CONST_METHOD_HANDLE: {
-
+                    scv.visitConstStmt(op, r, new DexType(unEscapeId(cst.getText())));
+                    System.err.println("AntilrSmaliUtil: CONST_METHOD_HANDLE > " + r + " | " + cst.getText() + " | " + unEscapeId(cst.getText()));
                 }
                 break;
                 case CONST_METHOD_TYPE: {
+                    scv.visitConstStmt(op, r, new DexType(unEscapeId(cst.getText())));
+                    System.err.println("AntilrSmaliUtil: CONST_METHOD_TYPE > " + r + " | " + cst.getText() + " | " + unEscapeId(cst.getText()));
                 }
                 break;
                 default:

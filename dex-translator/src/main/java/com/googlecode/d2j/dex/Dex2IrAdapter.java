@@ -442,6 +442,8 @@ public class Dex2IrAdapter extends DexCodeVisitor implements Opcodes, DexConstan
         case CONST_WIDE_HIGH16:
             x(nAssign(locals[toReg], nLong((Long) value)));
             break;
+        case CONST_METHOD_HANDLE:
+        case CONST_METHOD_TYPE:
         case CONST_CLASS:
             x(nAssign(locals[toReg], nType((DexType) value)));
             break;
